@@ -3,7 +3,7 @@ require "bundler"
  
 Bundler.require
  
-config_file './auth/config.yml' #cloudinary利用の設定情報を入れる。
+config_file './auth/config.yml'
  
 Cloudinary.config do |config|
   config.cloud_name = settings.cloud_name
