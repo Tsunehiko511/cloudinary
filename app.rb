@@ -1,4 +1,13 @@
 require 'sinatra'
+require 'bundler/setup'
+require 'thin'
+require 'cloudinary'
+require 'cloudinary/uploader'
+require 'cloudinary/utils'
+
+if Cloudinary.config.api_key.blank?
+	require './config.ur'
+end
 
 get "/" do
 	@title = "New Post"
@@ -10,9 +19,8 @@ post "/posts" do
 	@type = params[:uploaded_data][:type]
 	@name= params[:uploaded_data][:name]
 	@tempfile = params[:uploaded_data][:tempfile]
-	@head = params[:uploaded_data][:head]
 	uploads ={}
-	uploads[:fish] = Cloudinary::Uploader.upload(@tempfile.path,:tags => params[:uploaded_data][:filename])
+	uploads[:fish] = Cloudinary::Uploader.upload(@tempfile.path,:tags => "basic_sample")
 	@url = uploads[:fish]['url']
-	redirect '/'
+	erb :index
 end
