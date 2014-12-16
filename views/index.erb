@@ -1,13 +1,16 @@
+<%= @test %>
 <form action="/posts" method="post" enctype="multipart/form-data" accept-charset="utf-8">
-<textarea  id = "commentBody" name = "body" rows = "4" cols = "40" autofocus ></textarea>
+<input type="text" name="username" autofocus> <br>
+<textarea  name = "body" rows = "4" cols = "40" ></textarea><br>
 <input class="input-xlarge" id="picture" name="uploaded_data" type="file">
 <input type="submit" value="投稿"> 
 </form>
 
-URL: <img src="http://res-4.cloudinary.com/hzagpfxbq/image/upload/sample.jpg" width="240"><br>
-URL: <img src="http://res-4.cloudinary.com/hzagpfxbq/image/upload/earth.jpg" width="240">
-
-
 <% @comments.each do |comment| %>
-	<p data-id = "<%= comment.id %>"><%= comment.id %> : <%= comment.body %></p>
+	<p data-id = "<%= comment.id %>" <% if comment.filename %>data-class = "<%= comment.filename %>"<% end %>><span class ="deleteCmd" style="cursor:pointer;color:blue">[x]</span><%= comment.id %>/<%= comment.name %> : <%= comment.created_at.localtime.strftime "%Y年%m月%d日 %H時%M分" %><br>
+		<% if comment.filename %>
+			<img src="http://res-4.cloudinary.com/hzagpfxbq/image/upload/<%= comment.filename %>.jpg" width="240"><br>
+		<% end %>
+
+		<%= comment.body %></p>
 <% end %>

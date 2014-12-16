@@ -7,16 +7,11 @@ require 'cloudinary/utils'
 require 'active_record'
 require 'sinatra/json'
 require './models/comment.rb'
+require 'securerandom'
 
 if Cloudinary.config.api_key.blank?
 	require './config'
 end
-=begin
-ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || 'sqlite3://localhost/development.db')
-
-class Comment < ActiveRecord::Base
-end
-=end
 get "/" do
 	@title = "New Post"
 	@comments = Comment.all
@@ -24,13 +19,27 @@ get "/" do
 end
 
 post "/posts" do
-	Comment.create({:body => params[:body]})
-	@filename = params[:uploaded_data][:filename]
-	@type = params[:uploaded_data][:type]
-	@name= params[:uploaded_data][:name]
-	@tempfile = params[:uploaded_data][:tempfile]
-	uploads ={}
-	uploads[:fish] = Cloudinary::Uploader.upload(@tempfile.path, :public_id=> @filename ,:tags => "basic_sample")
-	@url = uploads[:fish]['url']
+	if params[:uploaded_data]
+		@filename = SecureRandom.uuid
+		Comment.create({:body => params[:body],:name => params[:username],:filename => @filename})
+		@tempfile = params[:uploaded_data][:tempfile]
+		uploads ={}
+		uploads[:fish] = Cloudinary::Uploader.upload(@tempfile.path, :public_id=> @filename, :format=>'jpg' ,:tags => "basic_sample")
+		@url = uploads[:fish]['url']
+	else
+				Comment.create({:body => params[:body],:name => params[:username]})
+	end
 	redirect '/'
+end
+
+post "/delete" do
+	ActiveRecord::Base.connection_pool.with_connection do
+		begin
+			Comment.find(params[:id]).destroy
+			if params[:filename]
+				Cloudinary::Uploader.destroy(public_id = params[:filename])
+			end
+			redirect '/'
+		end
+	end
 end

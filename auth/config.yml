@@ -1,7 +1,7 @@
 ---
 development:
   adapter: sqlite3
-  database: comment.db
+  database: sqlite3:comment.db
   cloud_name: hzagpfxbq
   api_key: '239898517751637'
   api_secret: 1ZP2b33uBzZmyJZNwS46hXRxLa8
@@ -19,9 +19,3 @@ production:
   api_secret: 1ZP2b33uBzZmyJZNwS46hXRxLa8
   enhance_image_tag: true
   static_image_support: true
-test:
-  cloud_name: hzagpfxbq
-  api_key: '239898517751637'
-  api_secret: 1ZP2b33uBzZmyJZNwS46hXRxLa8
-  enhance_image_tag: true
-  static_image_support: false

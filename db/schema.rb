@@ -14,7 +14,11 @@
 ActiveRecord::Schema.define(version: 20141216113752) do
 
   create_table "comments", force: true do |t|
-    t.text "body"
+    t.string   "name"
+    t.text     "body"
+    t.text     "filename"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
