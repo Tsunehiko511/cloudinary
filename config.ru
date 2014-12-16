@@ -11,5 +11,5 @@ Cloudinary.config do |config|
 	config.api_secret = settings.api_secret
 end
 
-require "./app"
+require "./app.rb"
 run Sinatra::Application

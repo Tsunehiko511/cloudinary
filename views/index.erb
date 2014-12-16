@@ -1,7 +1,13 @@
 <form action="/posts" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+<textarea  id = "commentBody" name = "body" rows = "4" cols = "40" autofocus ></textarea>
 <input class="input-xlarge" id="picture" name="uploaded_data" type="file">
 <input type="submit" value="投稿"> 
 </form>
 
 URL: <img src="http://res-4.cloudinary.com/hzagpfxbq/image/upload/sample.jpg" width="240"><br>
 URL: <img src="http://res-4.cloudinary.com/hzagpfxbq/image/upload/earth.jpg" width="240">
+
+
+<% @comments.each do |comment| %>
+	<p data-id = "<%= comment.id %>"><%= comment.id %> : <%= comment.body %></p>
+<% end %>

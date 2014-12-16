@@ -1,11 +1,19 @@
 ---
 development:
+  adapter: sqlite3
+  database: comment.db
   cloud_name: hzagpfxbq
   api_key: '239898517751637'
   api_secret: 1ZP2b33uBzZmyJZNwS46hXRxLa8
   enhance_image_tag: true
   static_image_support: false
 production:
+  adapter: postgresql
+  host: ec2-54-235-76-206.compute-1.amazonaws.com
+  port: '5432'
+  database: ddkcftfbrk053d
+  username: xjkjkzydvgcmll
+  password: ejUmmxtWWB8YcJlSIvrGyBiwzQ
   cloud_name: hzagpfxbq
   api_key: '239898517751637'
   api_secret: 1ZP2b33uBzZmyJZNwS46hXRxLa8
