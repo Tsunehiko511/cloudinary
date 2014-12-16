@@ -7,7 +7,6 @@ require 'cloudinary/utils'
 require 'active_record'
 require 'sinatra/json'
 require './models/comment.rb'
-require './config.ru'
 require 'securerandom'
 
 get "/" do
